@@ -1,12 +1,16 @@
-const Koa = require('koa');
-const app = new Koa();
+const Repl = require('repl');
+const Forema = require('./forema');
+const Chalk = require('chalk');
 
-const errorMiddleware = require('./middleware/error');
+const forema = (global.forema = new Forema({}));
 
-app.use(errorMiddleware);
-// response
-app.use((ctx) => {
-  ctx.body = 'Hello Koa';
+forema.start();
+
+console.log(Chalk.whiteBright('forema-server'));
+console.log('(To exit, press ^C again or ^D or type .exit)');
+
+const repl = Repl.start();
+repl.on('exit', () => {
+  forema.stop();
+  process.exit();
 });
-
-app.listen(3000);
