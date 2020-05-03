@@ -3,9 +3,10 @@
 
 const meow = require('meow');
 const fs = require('fs');
+const path = require('path');
 
 //Prevent
-if (!fs.existsSync('../dist')) {
+if (!fs.existsSync(path.join(__dirname, '../dist'))) {
   console.log('Please, build forema before...');
   process.exit(1);
 }
