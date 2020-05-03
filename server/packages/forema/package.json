@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/fedemartinm/forema/issues"
   },
-  "homepage": "https://github.com/fedemartinm/forema#readme"
+  "homepage": "https://github.com/fedemartinm/forema#readme",
+  "dependencies": {
+    "koa": "^2.11.0"
+  }
 }
