@@ -2,7 +2,15 @@
 'use strict';
 
 const meow = require('meow');
-const startup = require('../lib');
+const fs = require('fs');
+
+//Prevent
+if (!fs.existsSync('../dist')) {
+  console.log('Please, build forema before...');
+  process.exit(1);
+}
+
+const startup = require('../dist');
 
 const helpText = `
 Usage: forema [options]
