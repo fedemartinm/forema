@@ -4,8 +4,11 @@
   "description": "Forema Server",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node ./lib/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "forema": "./bin/forema.js"
   },
   "repository": {
     "type": "git",
@@ -23,10 +26,11 @@
   },
   "homepage": "https://github.com/fedemartinm/forema#readme",
   "dependencies": {
-    "shared": "file:../shared",
     "chalk": "^4.0.0",
     "koa": "^2.11.0",
     "koa-router": "^8.0.8",
+    "meow": "^6.1.1",
+    "shared": "file:../shared",
     "uuid": "^8.0.0"
   }
 }
