@@ -1,24 +1,27 @@
 import Koa from 'koa';
 import Router from 'koa-router';
+import { Settings } from './utils';
 import errorHandler from './middleware/error';
+import pino from 'koa-pino-logger';
 
 export default class Forema {
   constructor(launchOptions) {
     this.koa = new Koa();
     this.router = new Router();
+    this.settings = new Settings(launchOptions);
   }
 
   start() {
     this.router.get('/', (ctx, next) => {
       ctx.body = 'Pep';
-      console.log('GET');
+      throw new Error('Bang!!!!');
     });
     this.koa
-      .use(errorHandler) //
-      .use(this.router.routes()) //
+      .use(pino(this.settings.logger))
+      .use(this.router.routes())
       .use(this.router.allowedMethods());
 
-    this.koa.listen(3000);
+    this.koa.listen(this.settings.server);
   }
 
   stop(errorMessage = null) {

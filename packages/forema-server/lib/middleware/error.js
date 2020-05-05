@@ -4,5 +4,6 @@ export default async (ctx, next) => {
   } catch (err) {
     ctx.status = err.statusCode || err.status || 500;
     ctx.body = err.message;
+    ctx.log.error('Handling error...');
   }
 };

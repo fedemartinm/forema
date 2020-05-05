@@ -55,7 +55,8 @@ function stop() {
  * e.g. npm run start
  */
 if (require.main === module) {
-  startup({ development: true });
+  const development = process.env.NODE_ENV === 'development';
+  startup({ development });
 }
 
 module.exports = startup;
