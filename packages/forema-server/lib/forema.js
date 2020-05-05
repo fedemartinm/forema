@@ -1,8 +1,8 @@
-const Koa = require('koa');
-const Router = require('koa-router');
-const errorHandler = require('./middleware/error');
+import Koa from 'koa';
+import Router from 'koa-router';
+import errorHandler from './middleware/error';
 
-class Forema {
+export default class Forema {
   constructor(launchOptions) {
     this.koa = new Koa();
     this.router = new Router();
@@ -26,5 +26,3 @@ class Forema {
     !errorMessage && console.log(`App stopped. See you later!`);
   }
 }
-
-module.exports = Forema;

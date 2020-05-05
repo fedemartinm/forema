@@ -1,1 +1,6 @@
-module.exports = console.log;
+/**
+ * MIT License
+ * Copyright (c) 2020 fedemartinm
+ *
+ * @flow
+ */

@@ -1,6 +1,6 @@
-const Repl = require('repl');
-const Forema = require('./forema');
-const Chalk = require('chalk');
+import Chalk from 'chalk';
+import Forema from './forema';
+import Repl from 'repl';
 
 function startup(options = {}) {
   const { development } = options;
