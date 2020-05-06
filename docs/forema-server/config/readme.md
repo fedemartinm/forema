@@ -23,7 +23,7 @@ The `app.js` file contains all koa server options. It is divided in 4 sub-region
 - **origin** `Access-Control-Allow-Origin` header, default is request Origin header
 - **allowMethods** `Access-Control-Allow-Methods` header, default is 'GET,HEAD,PUT,POST,DELETE,PATCH'. String or array of verbs.
 - **exposeHeaders** `Access-Control-Expose-Headers` header, string or array.
-- **allowHeaders** {String|Array}  `Access-Control-Allow-Headers` header, string or array.
+- **allowHeaders** `Access-Control-Allow-Headers` header, string or array.
 - **maxAge** `Access-Control-Max-Age` header, value in seconds.
 - **credentials** `Access-Control-Allow-Credentials` header, Boolean value.
 
