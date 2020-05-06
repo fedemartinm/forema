@@ -1,4 +1,4 @@
-export default async (ctx, next) => {
+export default (isDevelopment) => async (ctx, next) => {
   try {
     await next();
   } catch (err) {
