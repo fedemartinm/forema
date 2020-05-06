@@ -1,7 +1,7 @@
 ## Forema Server Configuration
 
 Forema Server can have multiple configuration profiles, based on NODE_ENV variable.
-Default profiles are `development` and `droduction`.
+Default profiles are `development` and `production`.
 
 ```bash
 \config
