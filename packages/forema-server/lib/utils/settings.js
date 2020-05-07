@@ -3,8 +3,26 @@ import { exists, existsSync } from 'fs';
 
 const LOGGER_FILE = 'logger.json';
 const APP_FILE = 'app.json';
+const DB_FILE = 'database.json';
 
 export default class Settings {
+  /**
+   * Database configurations
+   */
+  get database() {
+    return {
+      /**
+       * Connect to MongoDB using a url.
+       */
+      url: this.files[DB_FILE].url,
+      /**
+       * Optional settings MongoDB Native.
+       * @see http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#.connect
+       */
+      options: this.files[DB_FILE].options ?? {},
+    };
+  }
+
   /**
    * Logger configurations
    */
@@ -154,6 +172,7 @@ export default class Settings {
     this.checkEnviroment();
     this.readFile(LOGGER_FILE);
     this.readFile(APP_FILE);
+    this.readFile(DB_FILE);
   }
 
   checkEnviroment() {
