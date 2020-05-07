@@ -1,4 +1,4 @@
 {
-  "url": "mongodb://localhost:27017/forema_v1",
+  "url": "mongodb://localhost:27017",
   "options": { "useUnifiedTopology": true }
 }
