@@ -5,6 +5,7 @@ import {
   errorHandler,
   helmet,
   pino,
+  validator,
 } from './middlewares';
 
 import { Database } from './database';
@@ -31,6 +32,7 @@ export default class Forema {
       .use(compress(this.settings.compression))
       .use(cors(this.settings.origins))
       .use(bodyParser())
+      .use(validator())
       .use(apiRoutes(this.database.db));
 
     // start

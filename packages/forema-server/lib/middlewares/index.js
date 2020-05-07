@@ -1,4 +1,5 @@
 export { default as errorHandler } from './error';
+export { default as validator } from './validator';
 export { default as bodyParser } from 'koa-body';
 export { default as compress } from 'koa-compress';
 export { default as cors } from '@koa/cors';
