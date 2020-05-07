@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "user",
+  "type": "object",
+  "title": "User",
+  "default": {},
+  "required": ["userId", "name", "username", "email", "role"],
+  "additionalProperties": true,
+  "properties": {
+    "userId": {
+      "$id": "#/properties/userId",
+      "type": "string",
+      "title": "User Id",
+      "description": "Unique User Identifier"
+    },
+    "name": {
+      "$id": "#/properties/name",
+      "type": "string",
+      "description": "User's full name",
+      "title": "Name",
+      "maxLength": 50
+    },
+    "username": {
+      "$id": "#/properties/username",
+      "type": "string",
+      "title": "Username",
+      "description": "Name that uniquely identifies user ",
+      "pattern": "^[a-zA-Z_$][a-zA-Z_$0-9]*$",
+      "maxLength": 16,
+      "minLength": 3
+    },
+    "avatarUrl": {
+      "$id": "#/properties/avatarUrl",
+      "type": "string",
+      "title": "The avatarUrl schema",
+      "description": "An explanation about the purpose of this instance.",
+      "maxLength": 2048
+    },
+    "email": {
+      "$id": "#/properties/email",
+      "type": "string",
+      "title": "The email schema",
+      "description": "An explanation about the purpose of this instance.",
+      "maxLength": 320,
+      "pattern": "@.*?\\."
+    },
+    "role": {
+      "$id": "#/properties/role",
+      "type": "string",
+      "title": "Role",
+      "description": "Defines permissions for user",
+      "pattern": "^admin|moderator|user$"
+    }
+  },
+  "description": "Every person who uses Forema"
+}
