@@ -1,24 +1,29 @@
+import {
+  bodyParser,
+  compress,
+  cors,
+  errorHandler,
+  helmet,
+  pino,
+} from './middlewares';
+
+import { Database } from './database';
 import Koa from 'koa';
-import Router from 'koa-router';
 import { Settings } from './utils';
-import bodyParser from 'koa-body';
-import compress from 'koa-compress';
-import cors from '@koa/cors';
-import errorHandler from './middleware/error';
-import helmet from 'koa-helmet';
-import pino from 'koa-pino-logger';
+import { apiRoutes } from './api';
 
 export default class Forema {
   constructor(launchOptions) {
     this.koa = new Koa();
-    this.router = new Router();
     this.settings = new Settings(launchOptions);
+    this.database = new Database(this.settings.database);
   }
 
-  start() {
-    this.router.get('/', (ctx, next) => {
-      ctx.body = 'Pep';
-    });
+  async start() {
+    // connect to mongo-db
+    await this.database.connect();
+
+    // apply middlewares
     this.koa
       .use(pino(this.settings.logger))
       .use(errorHandler(this.settings.development))
@@ -26,13 +31,16 @@ export default class Forema {
       .use(compress(this.settings.compression))
       .use(cors(this.settings.origins))
       .use(bodyParser())
-      .use(this.router.routes())
-      .use(this.router.allowedMethods());
+      .use(apiRoutes(this.database.db));
 
-    this.koa.listen(this.settings.server);
+    // start
+    this.koa.listen(this.settings.server, () => {
+      console.log('App started!');
+    });
   }
 
-  stop(errorMessage = null) {
+  async stop(errorMessage = null) {
+    await this.database.disconnect();
     errorMessage && console.log(`App stopped with error: ${errorMessage}`);
     !errorMessage && console.log(`App stopped. See you later!`);
   }
