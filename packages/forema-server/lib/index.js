@@ -13,8 +13,8 @@ function startup(options = {}) {
   global.forema = new Forema(foremaOptions);
 
   //Cleanup and exit
-  process.on('SIGINT', stop);
-  process.on('SIGTERM', stop);
+  process.on('SIGINT', () => stop());
+  process.on('SIGTERM', () => stop());
 
   if (development) {
     console.log(Chalk.redBright('Development mode'));
@@ -30,24 +30,22 @@ function startup(options = {}) {
  * Catch unhandled exceptions before the application terminates.
  */
 function start() {
-  try {
-    global.forema.start();
-  } catch (error) {
-    console.error(error);
-    stop();
-  }
+  console.log('Este arranque');
+  global.forema.start().catch((error) => {
+    console.log('Pasando por aca');
+    stop(error);
+  });
 }
 
 /**
  * Stop and clean-up function
  */
-function stop() {
-  try {
-    global.forema.stop();
-  } catch (error) {
-    console.error(error);
-  }
-  process.exit(0);
+function stop(error = '') {
+  console.log('Este cierre');
+  global.forema
+    .stop(error)
+    .then(() => process.exit(0))
+    .catch((error) => console.error(`Error stopping app:${error}`));
 }
 
 /**
