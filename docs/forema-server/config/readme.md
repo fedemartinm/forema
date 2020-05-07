@@ -48,6 +48,7 @@ See helmet for advanced options: `contentSecurityPolicy`, `permittedCrossDomainP
 The `database.json` file contains mongo-db settings.
 
 - **url** URL used to connect to MongoDB.
+- **database** Database name.
 - **options** Optional. See http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#.connect
 
 ### Logger

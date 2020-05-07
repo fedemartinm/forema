@@ -16,6 +16,10 @@ export default class Settings {
        */
       url: this.files[DB_FILE].url,
       /**
+       * Database name
+       */
+      database: this.files[DB_FILE].database,
+      /**
        * Optional settings MongoDB Native.
        * @see http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#.connect
        */
