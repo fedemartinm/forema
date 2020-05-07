@@ -12,5 +12,5 @@ export interface UserCatalog {
   createUser(user: User): Promise<User>;
   getUser(userId: string): Promise<User>;
   updateUser(user: User): Promise<User>;
-  deleteUser(userId: string): Promise<Boolean>;
+  deleteUser(userId: string): Promise<boolean>;
 }
