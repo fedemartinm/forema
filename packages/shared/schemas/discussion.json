@@ -81,24 +81,27 @@
       "type": "array",
       "title": "Likes",
       "description": "Users who have “liked” this discussion; Array of IDs",
-      "additionalItems": true,
-      "items": false
+      "items": {
+        "type": "string"
+      }
     },
     "dislikes": {
       "$id": "#/properties/dislikes",
       "type": "array",
       "title": "Dislikes",
       "description": "Users who have “disliked” this discussion; Array of IDs",
-      "additionalItems": true,
-      "items": false
+      "items": {
+        "type": "string"
+      }
     },
     "tags": {
       "$id": "#/properties/tags",
       "type": "array",
       "title": "Tags",
       "description": "Describe specific details of discussion; Array of keywords",
-      "additionalItems": true,
-      "items": false
+      "items": {
+        "type": "string"
+      }
     },
     "pinned": {
       "$id": "#/properties/pinned",
