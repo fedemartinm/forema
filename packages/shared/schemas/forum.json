@@ -53,7 +53,7 @@
       "type": "string",
       "title": "Forum Type",
       "description": "Defines forum type",
-      "pattern": "^public|protected|readonly$"
+      "pattern": "^(?:public|protected|readonly)$"
     }
   }
 }
