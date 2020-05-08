@@ -3,7 +3,7 @@
   "$id": "user",
   "type": "object",
   "title": "User",
-  "default": {},
+  "description": "Every person who uses Forema",
   "required": ["userId", "name", "username", "email", "role"],
   "additionalProperties": true,
   "properties": {
@@ -33,14 +33,14 @@
       "$id": "#/properties/avatarUrl",
       "type": "string",
       "title": "The avatarUrl schema",
-      "description": "An explanation about the purpose of this instance.",
-      "maxLength": 2048
+      "description": "Link to user's avatar or base64 encoded image",
+      "maxLength": 400000
     },
     "email": {
       "$id": "#/properties/email",
       "type": "string",
-      "title": "The email schema",
-      "description": "An explanation about the purpose of this instance.",
+      "title": "Email",
+      "description": "User's email",
       "maxLength": 320,
       "pattern": "@.*?\\."
     },
@@ -51,6 +51,5 @@
       "description": "Defines permissions for user",
       "pattern": "^admin|moderator|user$"
     }
-  },
-  "description": "Every person who uses Forema"
+  }
 }
