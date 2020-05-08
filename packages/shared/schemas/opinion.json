@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "opinion.json",
+  "type": "object",
+  "title": "Opinion",
+  "description": "User Opinion",
+  "required": [
+    "opinionId",
+    "forumId",
+    "discussionId",
+    "userId",
+    "date",
+    "content"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "opinionId": {
+      "$id": "#/properties/opinionId",
+      "type": "string",
+      "title": "Opinion Id",
+      "description": "Unique Opinion Identifier"
+    },
+    "parentId": {
+      "$id": "#/properties/parentId",
+      "type": "string",
+      "title": "Parent Id",
+      "description": "Reference to parent opinion"
+    },
+    "forumId": {
+      "$id": "#/properties/forumId",
+      "type": "string",
+      "title": "Forum Id",
+      "description": "Reference to forum"
+    },
+    "discussionId": {
+      "$id": "#/properties/discussionId",
+      "type": "string",
+      "title": "Discussion Id",
+      "description": "Reference to discussion"
+    },
+    "userId": {
+      "$id": "#/properties/userId",
+      "type": "string",
+      "title": "User Id",
+      "description": "User Id who created opinion"
+    },
+    "user": {
+      "title": "User",
+      "description": "User who created opinion",
+      "$ref": "user.json"
+    },
+    "likes": {
+      "$id": "#/properties/likes",
+      "type": "array",
+      "title": "Likes",
+      "description": "Users who have “liked” this opinion; Array of IDs",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dislikes": {
+      "$id": "#/properties/dislikes",
+      "type": "array",
+      "title": "Dislikes",
+      "description": "Users who have “disliked” this opinion; Array of IDs",
+      "items": {
+        "type": "string"
+      }
+    },
+    "date": {
+      "$id": "#/properties/date",
+      "type": "string",
+      "title": "Date",
+      "description": "Opinion creation date"
+    },
+    "content": {
+      "$id": "#/properties/content",
+      "type": "object",
+      "title": "Content",
+      "description": "Opinion's content",
+      "additionalProperties": true,
+      "properties": {}
+    }
+  }
+}
