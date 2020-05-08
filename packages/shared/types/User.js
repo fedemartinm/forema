@@ -3,7 +3,7 @@ export type User = {
   userId: string,
   name: string,
   username: string,
-  avatarUrl: string,
+  avatarUrl: ?string,
   email: string,
   role: 'admin' | 'moderator' | 'user',
 };

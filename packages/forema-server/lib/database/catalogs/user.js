@@ -59,7 +59,8 @@ export class Users implements UserCatalog {
           {
             _id: new ObjectID(user.userId),
           },
-          { $set: user }
+          { $set: user },
+          { returnOriginal: false }
         );
         if (value === null) {
           throw new Error('Invalid userId');
