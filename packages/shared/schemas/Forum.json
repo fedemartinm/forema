@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "forum",
+  "type": "object",
+  "title": "Forum",
+  "description": "Place where users can share and discuss subjects",
+  "required": [
+    "forumId",
+    "forumSlug",
+    "forumName",
+    "forumDescription",
+    "forumType"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "forumId": {
+      "$id": "#/properties/forumId",
+      "type": "string",
+      "title": "Forum Id",
+      "description": "Unique Forum Identifier"
+    },
+    "forumSlug": {
+      "$id": "#/properties/forumSlug",
+      "type": "string",
+      "title": "Forum Slug",
+      "description": "Part of URL which identifies a particular forum ",
+      "maxLength": 50,
+      "pattern": "([A-Za-z0-9\\-\\_]+)"
+    },
+    "forumName": {
+      "$id": "#/properties/forumName",
+      "type": "string",
+      "title": "Forum name",
+      "description": "Forum's name",
+      "maxLength": 50
+    },
+    "forumDescription": {
+      "$id": "#/properties/forumDescription",
+      "type": "string",
+      "title": "Forum Description",
+      "description": "Forum's description",
+      "maxLength": 280
+    },
+    "forumCover": {
+      "$id": "#/properties/forumCover",
+      "type": "string",
+      "title": "Forum Cover",
+      "description": "Link to forum cover image or base64 encoded image",
+      "maxLength": 400000
+    },
+    "forumType": {
+      "$id": "#/properties/forumType",
+      "type": "string",
+      "title": "Forum Type",
+      "description": "Defines forum type",
+      "pattern": "^public|protected|readonly$"
+    }
+  }
+}
