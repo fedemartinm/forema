@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "discussion.json",
+  "type": "object",
+  "title": "Discussion",
+  "description": "User-submitted post to a forum",
+  "required": [
+    "discussionId",
+    "forumId",
+    "discussionSlug",
+    "userId",
+    "date",
+    "title",
+    "content",
+    "tags",
+    "pinned",
+    "open"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "discussionId": {
+      "$id": "#/properties/discussionId",
+      "type": "string",
+      "title": "Discussion Id",
+      "description": "Unique Discussion Identifier"
+    },
+    "forumId": {
+      "$id": "#/properties/forumId",
+      "type": "string",
+      "title": "Forum Id",
+      "description": "Forum Id that discussion belongs to"
+    },
+    "forum": {
+      "title": "Forum",
+      "description": "Forum that discussion belongs to",
+      "$ref": "forum.json"
+    },
+    "discussionSlug": {
+      "$id": "#/properties/discussionSlug",
+      "type": "string",
+      "title": "Discussion Slug",
+      "description": "Part of URL which identifies a particular discussion",
+      "maxLength": 50,
+      "pattern": "([A-Za-z0-9\\\\-\\\\_]+)"
+    },
+    "userId": {
+      "$id": "#/properties/userId",
+      "type": "string",
+      "title": "User Id",
+      "description": "Discussion creator User Id"
+    },
+    "user": {
+      "title": "User",
+      "description": "Discussion creator user",
+      "$ref": "user.json"
+    },
+    "date": {
+      "$id": "#/properties/date",
+      "type": "string",
+      "title": "Date",
+      "description": "Discussion creation date"
+    },
+    "title": {
+      "$id": "#/properties/title",
+      "type": "string",
+      "title": "Title",
+      "description": "Discussion title",
+      "maxLength": 50
+    },
+    "content": {
+      "$id": "#/properties/content",
+      "type": "object",
+      "title": "Content",
+      "description": "Discussion's content",
+      "required": [],
+      "additionalProperties": true,
+      "properties": {}
+    },
+    "likes": {
+      "$id": "#/properties/likes",
+      "type": "array",
+      "title": "Likes",
+      "description": "Users who have “liked” this discussion; Array of IDs",
+      "additionalItems": true,
+      "items": false
+    },
+    "dislikes": {
+      "$id": "#/properties/dislikes",
+      "type": "array",
+      "title": "Dislikes",
+      "description": "Users who have “disliked” this discussion; Array of IDs",
+      "additionalItems": true,
+      "items": false
+    },
+    "tags": {
+      "$id": "#/properties/tags",
+      "type": "array",
+      "title": "Tags",
+      "description": "Describe specific details of discussion; Array of keywords",
+      "additionalItems": true,
+      "items": false
+    },
+    "pinned": {
+      "$id": "#/properties/pinned",
+      "type": "boolean",
+      "title": "Pinned",
+      "description": "Pinned discussions will appear at the top of the feed "
+    },
+    "open": {
+      "$id": "#/properties/open",
+      "type": "boolean",
+      "title": "Open",
+      "description": "Allow opinions"
+    }
+  }
+}
