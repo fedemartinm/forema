@@ -22,17 +22,13 @@ export type Discussion = {
 export interface DiscussionCatalog {
   getDiscussions(
     forumId: string,
-    pinned: ?boolean,
+    pinned: boolean,
     sortingMethod: 'date' | 'popularity'
   ): Promise<Discussion[]>;
 
-  getDiscussion(
-    discussionSlug: ?string,
-    discussionId: ?string
-  ): Promise<Discussion[]>;
-
+  getDiscussion(discussionId: string): Promise<Discussion>;
   createDiscussion(discussion: Discussion): Promise<Discussion>;
   updateDiscussion(discussion: Discussion): Promise<Discussion>;
   deleteDiscussion(discussionId: string): Promise<boolean>;
-  vote(discussionId: string, userId: string, vote: Number): Promise<Discussion>;
+  vote(discussionId: string, userId: string, vote: number): Promise<Discussion>;
 }

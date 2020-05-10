@@ -21,22 +21,20 @@ export class Discussions implements DiscussionCatalog {
     sortingMethod: 'date' | 'popularity'
   ): Promise<Discussion[]> {
     return new Promise<Discussion[]>(async (resolve, reject) => {
-      //Options
+      // Match options
+      const match = {};
       const sort = {};
-      switch (sortingMethod) {
-        case 'popularity':
-          sort._id = -1;
-          break;
-        default:
-        case 'date':
-          sort._id = 1;
-          break;
-      }
-      console.log('SORT', sort);
+
+      match.forumId = new ObjectID(forumId);
+      if (typeof pinned !== 'undefined') match.pinned = pinned;
+      if (sortingMethod === 'date') sort.date = -1;
+      if (sortingMethod === 'popularity') sort.likes = -1;
+
       try {
         const discussions = await this.discussionsCollection
           .aggregate([
-            { $match: { forumId: new ObjectID(forumId) } },
+            { $match: match },
+            { $sort: sort },
             // join refs
             {
               $lookup: {
@@ -64,9 +62,8 @@ export class Discussions implements DiscussionCatalog {
                 'forum.forumId': '$forum._id',
               },
             },
-            // remove mongo _id prop
+            // remove mongo _id props
             { $project: { _id: 0, 'user._id': 0, 'forum._id': 0 } },
-            { $sort: sort },
           ])
           .toArray();
 
@@ -77,11 +74,49 @@ export class Discussions implements DiscussionCatalog {
     });
   }
 
-  getDiscussion(
-    discussionSlug: ?string,
-    discussionId: ?string
-  ): Promise<Discussion[]> {
-    return new Promise(() => {});
+  getDiscussion(discussionId: string): Promise<Discussion> {
+    return new Promise<Discussion>(async (resolve, reject) => {
+      try {
+        const discussion = await this.discussionsCollection
+          .aggregate([
+            { $match: { _id: new ObjectID(discussionId) } },
+            // join refs
+            {
+              $lookup: {
+                from: 'users',
+                localField: 'userId',
+                foreignField: '_id',
+                as: 'user',
+              },
+            },
+            { $unwind: '$user' },
+            {
+              $lookup: {
+                from: 'forums',
+                localField: 'forumId',
+                foreignField: '_id',
+                as: 'forum',
+              },
+            },
+            { $unwind: '$forum' },
+            {
+              // rename IDs to entityId
+              $addFields: {
+                discussionId: '$_id',
+                'user.userId': '$user._id',
+                'forum.forumId': '$forum._id',
+              },
+            },
+            // remove mongo _id props
+            { $project: { _id: 0, 'user._id': 0, 'forum._id': 0 } },
+          ])
+          .toArray();
+
+        resolve(discussion[0]);
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 
   createDiscussion(discussion: Discussion): Promise<Discussion> {
@@ -124,17 +159,86 @@ export class Discussions implements DiscussionCatalog {
       }
     });
   }
+
   updateDiscussion(discussion: Discussion): Promise<Discussion> {
-    return new Promise(() => {});
+    return new Promise<Discussion>(async (resolve, reject) => {
+      try {
+        const { value } = await this.discussionsCollection.findOneAndUpdate(
+          {
+            _id: new ObjectID(discussion.discussionId),
+          },
+          { $set: discussion },
+          { returnOriginal: false }
+        );
+        if (value === null) {
+          throw new Error('Invalid discussionId');
+        } else {
+          resolve({
+            discussionId: value._id,
+            forumId: value.forumId,
+            forum: null,
+            discussionSlug: value.discussionSlug,
+            userId: value.userId,
+            user: null,
+            date: value.date,
+            title: value.title,
+            content: value.content,
+            likes: value.likes,
+            dislikes: value.dislikes,
+            tags: value.tags,
+            pinned: value.pinned,
+            open: value.open,
+          });
+        }
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
+
   deleteDiscussion(discussionId: string): Promise<boolean> {
-    return new Promise(() => {});
+    return new Promise<boolean>(async (resolve, reject) => {
+      try {
+        const result = await this.discussionsCollection.deleteOne({
+          _id: new ObjectID(discussionId),
+        });
+
+        resolve(result.deletedCount === 1);
+      } catch (e) {
+        reject(false);
+      }
+    });
   }
+
   vote(
     discussionId: string,
     userId: string,
-    vote: Number
+    vote: number
   ): Promise<Discussion> {
-    return new Promise(() => {});
+    return new Promise<Discussion>(async (resolve, reject) => {
+      try {
+        const discussion = await this.discussionsCollection.findOne({
+          _id: new ObjectID(discussionId),
+        });
+        if (!discussion) {
+          throw new Error('Invalid discussionId');
+        }
+
+        discussion.likes = discussion.likes.filter((u) => u !== userId);
+        discussion.dislikes = discussion.dislikes.filter((u) => u !== userId);
+
+        if (vote === 1) {
+          discussion.likes.unshift(userId);
+        }
+        if (vote === -1) {
+          discussion.dislikes.unshift(userId);
+        }
+
+        const updated = await this.updateDiscussion(discussion);
+        resolve(updated);
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 }
