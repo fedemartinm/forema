@@ -1,13 +1,20 @@
 import Ajv from 'ajv';
-import discussionSchema from 'shared/schemas/Discussion.json';
-import forumSechema from 'shared/schemas/Forum.json';
+import apiDiscussions from '../schemas/api_discussions';
+import discussionSchema from 'shared/schemas/discussion.json';
+import forumSechema from 'shared/schemas/forum.json';
 import opinionSchema from 'shared/schemas/opinion.json';
 import userSchema from 'shared/schemas/user.json';
 
 export default () => {
   // load and compile schemas
   var validator = new Ajv({
-    schemas: [userSchema, forumSechema, discussionSchema, opinionSchema],
+    schemas: [
+      userSchema,
+      forumSechema,
+      discussionSchema,
+      opinionSchema,
+      ...apiDiscussions,
+    ],
   });
 
   // middleware
