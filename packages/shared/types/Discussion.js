@@ -3,36 +3,36 @@ import type { Forum } from './Forum';
 import type { User } from './User';
 
 export type Discussion = {
-  discussionId: string | undefined,
+  discussionId: string,
   forumId: string,
-  forum: Forum,
+  forum: ?Forum,
   discussionSlug: string,
   userId: string,
-  user: User,
+  user: ?User,
   date: Date,
   title: string,
   content: Object,
   likes: string[],
   dislikes: string[],
   tags: string[],
-  pinned: Boolean,
-  open: Boolean,
+  pinned: boolean,
+  open: boolean,
 };
 
 export interface DiscussionCatalog {
   getDiscussions(
     forumId: string,
-    pinned: ?Boolean,
-    sorting_method: 'date' | 'popularity'
+    pinned: ?boolean,
+    sortingMethod: 'date' | 'popularity'
   ): Promise<Discussion[]>;
 
   getDiscussion(
-    discussionSlug: string | undefined,
-    discussionId: string | undefined
+    discussionSlug: ?string,
+    discussionId: ?string
   ): Promise<Discussion[]>;
 
   createDiscussion(discussion: Discussion): Promise<Discussion>;
   updateDiscussion(discussion: Discussion): Promise<Discussion>;
-  deleteDiscussion(discussionId: string): Promise<Boolean>;
+  deleteDiscussion(discussionId: string): Promise<boolean>;
   vote(discussionId: string, userId: string, vote: Number): Promise<Discussion>;
 }
