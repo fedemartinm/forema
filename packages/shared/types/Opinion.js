@@ -1,18 +1,13 @@
-import type { Discussion } from './Discussion';
 // @flow
-import type { Forum } from './Forum';
 import type { User } from './User';
 
 export type Opinion = {
-  opinionId: string | undefined,
-  parentId: string | undefined,
-  parentOpinion: Opinion | undefined,
+  opinionId: string,
+  parentId: ?string,
   forumId: string,
-  forum: Forum,
   discussionId: string,
-  discussion: Discussion,
   userId: string,
-  user: User,
+  user: ?User,
   likes: string[],
   dislikes: string[],
   date: Date,
@@ -21,13 +16,7 @@ export type Opinion = {
 
 export interface OpinionCatalog {
   getAllOpinions(discussionId: string): Promise<Opinion[]>;
-  createOpinion(
-    parentId: string | undefined,
-    forumId: string,
-    discussionId: string,
-    userId: string,
-    content: Object
-  ): Promise<Opinion>;
+  createOpinion(opinion: Opinion): Promise<Opinion>;
   updateOpinion(opinion: Opinion): Promise<Opinion>;
-  deleteOpinion(opinionId: string): Promise<Boolean>;
+  deleteOpinion(opinionId: string): Promise<boolean>;
 }

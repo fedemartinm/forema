@@ -2,6 +2,7 @@ import Router from 'koa-router';
 import compose from 'koa-compose';
 import discussion from './discussion';
 import forums from './forums';
+import opinion from './opinion';
 import users from './users';
 
 /**
@@ -15,6 +16,7 @@ export const apiRoutes = (database) => {
   users(router, database);
   forums(router, database);
   discussion(router, database);
+  opinion(router, database);
 
   return compose([router.routes(), router.allowedMethods()]);
 };
