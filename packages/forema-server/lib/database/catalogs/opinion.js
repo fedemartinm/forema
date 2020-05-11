@@ -1,14 +1,14 @@
 // @flow
-import type { Opinion, OpinionCatalog } from 'shared/types';
+import type { IOpinionCatalog, Opinion } from 'shared/types';
 
 import type { Collection } from 'mongodb';
 import { ObjectID } from 'mongodb';
 
-export class Opinions implements OpinionCatalog {
+export class OpinionCatalog implements IOpinionCatalog {
   opinionsCollection: Collection;
 
   constructor(db: any) {
-    this.opinionsCollection = db.collection('users');
+    this.opinionsCollection = db.collection('opinions');
   }
 
   getAllOpinions(discussionId: string): Promise<Opinion[]> {

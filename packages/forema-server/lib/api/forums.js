@@ -1,10 +1,10 @@
 /**
  * Forums apis
  */
-import { Forums } from '../database/catalogs/forum';
+import { ForumCatalog } from '../database/catalogs/forum';
 
 export default (router, database) => {
-  const catalog = new Forums(database);
+  const catalog = new ForumCatalog(database);
 
   router.get('forum/', async (ctx) => {
     ctx.body = {

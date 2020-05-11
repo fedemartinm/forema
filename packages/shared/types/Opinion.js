@@ -14,7 +14,7 @@ export type Opinion = {
   content: Object,
 };
 
-export interface OpinionCatalog {
+export interface IOpinionCatalog {
   getAllOpinions(discussionId: string): Promise<Opinion[]>;
   createOpinion(opinion: Opinion): Promise<Opinion>;
   updateOpinion(opinion: Opinion): Promise<Opinion>;

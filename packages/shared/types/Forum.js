@@ -8,7 +8,7 @@ export type Forum = {
   forumType: 'public' | 'protected' | 'readonly',
 };
 
-export interface ForumCatalog {
+export interface IForumCatalog {
   getAllForums(): Promise<Forum[]>;
   createForum(forum: Forum): Promise<Forum>;
   updateForum(forum: Forum): Promise<Forum>;

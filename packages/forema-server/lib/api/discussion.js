@@ -1,10 +1,10 @@
 /**
  * Discussion apis
  */
-import { Discussions } from '../database/catalogs/discussion';
+import { DiscussionCatalog } from '../database/catalogs/discussion';
 
 export default (router, database) => {
-  const catalog = new Discussions(database);
+  const catalog = new DiscussionCatalog(database);
 
   router.get('forum/:forumId/discussions', async (ctx) => {
     //Params

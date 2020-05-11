@@ -8,7 +8,7 @@ export type User = {
   role: 'admin' | 'moderator' | 'user',
 };
 
-export interface UserCatalog {
+export interface IUserCatalog {
   createUser(user: User): Promise<User>;
   getUser(userId: string): Promise<User>;
   updateUser(user: User): Promise<User>;

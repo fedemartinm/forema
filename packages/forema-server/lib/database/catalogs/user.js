@@ -1,10 +1,10 @@
 // @flow
-import type { User, UserCatalog } from 'shared/types';
+import type { IUserCatalog, User } from 'shared/types';
 
 import type { Collection } from 'mongodb';
 import { ObjectID } from 'mongodb';
 
-export class Users implements UserCatalog {
+export class UserCatalog implements IUserCatalog {
   usersCollection: Collection;
 
   constructor(db: any) {

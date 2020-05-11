@@ -1,10 +1,10 @@
 // @flow
-import type { Forum, ForumCatalog } from 'shared/types';
+import type { Forum, IForumCatalog } from 'shared/types';
 
 import type { Collection } from 'mongodb';
 import { ObjectID } from 'mongodb';
 
-export class Forums implements ForumCatalog {
+export class ForumCatalog implements IForumCatalog {
   forumsCollection: Collection;
 
   constructor(db: any) {

@@ -1,11 +1,11 @@
 // @flow
-import type { Discussion, DiscussionCatalog } from 'shared/types';
+import type { Discussion, IDiscussionCatalog } from 'shared/types';
 
 import type { Collection } from 'mongodb';
 import { ObjectID } from 'mongodb';
 import { generateSlug } from '../../utils';
 
-export class Discussions implements DiscussionCatalog {
+export class DiscussionCatalog implements IDiscussionCatalog {
   discussionsCollection: Collection;
 
   constructor(db: any) {

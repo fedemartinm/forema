@@ -19,7 +19,7 @@ export type Discussion = {
   open: boolean,
 };
 
-export interface DiscussionCatalog {
+export interface IDiscussionCatalog {
   getDiscussions(
     forumId: string,
     pinned: boolean,

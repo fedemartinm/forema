@@ -1,10 +1,10 @@
 /**
  * Users apis
  */
-import { Users } from '../database/catalogs/user';
+import { UserCatalog } from '../database/catalogs/user';
 
 export default (router, database) => {
-  const catalog = new Users(database);
+  const catalog = new UserCatalog(database);
 
   router.get('users/:id', async (ctx) => {
     ctx.body = {
