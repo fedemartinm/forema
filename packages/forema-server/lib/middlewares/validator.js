@@ -2,6 +2,7 @@ import Ajv from 'ajv';
 import apiDiscussions from '../schemas/api_discussions';
 import apiOpinions from '../schemas/api_opinions';
 import discussionSchema from 'shared/schemas/discussion.json';
+import foremaSchema from 'shared/schemas/forema.json';
 import forumSechema from 'shared/schemas/forum.json';
 import opinionSchema from 'shared/schemas/opinion.json';
 import userSchema from 'shared/schemas/user.json';
@@ -14,6 +15,7 @@ export default () => {
       forumSechema,
       discussionSchema,
       opinionSchema,
+      foremaSchema,
       ...apiDiscussions,
       ...apiOpinions,
     ],

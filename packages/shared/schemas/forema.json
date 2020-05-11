@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "forema.json",
+  "type": "object",
+  "title": "Forema",
+  "description": "Forema overview data",
+  "required": ["forums", "discussions", "opinions", "users"],
+  "additionalProperties": true,
+  "properties": {
+    "forums": {
+      "$id": "#/properties/forums",
+      "type": "integer",
+      "title": "Forums",
+      "description": "Number of forums"
+    },
+    "discussions": {
+      "$id": "#/properties/discussions",
+      "type": "integer",
+      "title": "Discussions",
+      "description": "Number of discussions"
+    },
+    "opinions": {
+      "$id": "#/properties/opinions",
+      "type": "integer",
+      "title": "Opinions",
+      "description": "Number of opinions"
+    },
+    "users": {
+      "$id": "#/properties/users",
+      "type": "integer",
+      "title": "Users",
+      "description": "Number of users"
+    }
+  }
+}
