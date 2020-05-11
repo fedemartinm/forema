@@ -133,7 +133,6 @@ export class Opinions implements OpinionCatalog {
   }
 
   vote(opinionId: string, userId: string, vote: number): Promise<Opinion> {
-    console.log('Votando con', opinionId, userId, vote);
     return new Promise<Opinion>(async (resolve, reject) => {
       try {
         let opinion = await this.opinionsCollection.findOne({
