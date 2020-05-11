@@ -1,7 +1,7 @@
 /**
  * Discussion apis
  */
-import { DiscussionCatalog } from '../database/catalogs/discussion';
+import { DiscussionCatalog } from '../database';
 
 export default (router, database) => {
   const catalog = new DiscussionCatalog(database);

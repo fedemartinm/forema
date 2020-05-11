@@ -1,7 +1,7 @@
 /**
  * Users apis
  */
-import { UserCatalog } from '../database/catalogs/user';
+import { UserCatalog } from '../database';
 
 export default (router, database) => {
   const catalog = new UserCatalog(database);

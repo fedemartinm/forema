@@ -1,7 +1,7 @@
 /**
  * Discussion apis
  */
-import { OpinionCatalog } from '../database/catalogs/opinion';
+import { OpinionCatalog } from '../database';
 
 export default (router, database) => {
   const catalog = new OpinionCatalog(database);

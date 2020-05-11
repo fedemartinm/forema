@@ -1,7 +1,7 @@
 /**
  * Forums apis
  */
-import { ForumCatalog } from '../database/catalogs/forum';
+import { ForumCatalog } from '../database';
 
 export default (router, database) => {
   const catalog = new ForumCatalog(database);
