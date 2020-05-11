@@ -58,7 +58,7 @@ export class Opinions implements OpinionCatalog {
           userId: new ObjectID(opinion.userId),
           likes: [],
           dislikes: [],
-          date: opinion.date,
+          date: new Date(),
           content: opinion.content,
         });
         const [inserted] = newOpinion.ops;

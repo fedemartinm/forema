@@ -126,7 +126,7 @@ export class Discussions implements DiscussionCatalog {
           forumId: new ObjectID(discussion.forumId),
           discussionSlug: discussion.discussionSlug,
           userId: new ObjectID(discussion.userId),
-          date: discussion.date,
+          date: new Date(),
           title: discussion.title,
           content: discussion.content,
           likes: [],
