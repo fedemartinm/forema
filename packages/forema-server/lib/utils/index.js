@@ -1,2 +1,2 @@
-export { default as slug } from './slug';
+export { default as generateSlug } from './slug';
 export { default as Settings } from './settings';

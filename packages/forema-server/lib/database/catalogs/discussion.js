@@ -3,6 +3,7 @@ import type { Discussion, DiscussionCatalog } from 'shared/types';
 
 import type { Collection } from 'mongodb';
 import { ObjectID } from 'mongodb';
+import { generateSlug } from '../../utils';
 
 export class Discussions implements DiscussionCatalog {
   discussionsCollection: Collection;
@@ -124,7 +125,7 @@ export class Discussions implements DiscussionCatalog {
       try {
         const newDiscussion = await this.discussionsCollection.insertOne({
           forumId: new ObjectID(discussion.forumId),
-          discussionSlug: discussion.discussionSlug,
+          discussionSlug: generateSlug(discussion.title),
           userId: new ObjectID(discussion.userId),
           date: new Date(),
           title: discussion.title,
