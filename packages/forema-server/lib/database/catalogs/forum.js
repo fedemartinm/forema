@@ -43,7 +43,14 @@ export class Forums implements ForumCatalog {
           throw new Error('Forum already exists');
         }
 
-        const newForum = await this.forumsCollection.insertOne(forum);
+        const newForum = await this.forumsCollection.insertOne({
+          forumSlug: forum.forumSlug,
+          forumName: forum.forumName,
+          forumDescription: forum.forumDescription,
+          forumCover: forum.forumCover,
+          forumType: forum.forumType,
+        });
+
         const [inserted] = newForum.ops;
         resolve({
           forumId: newForum.insertedId,
@@ -65,7 +72,14 @@ export class Forums implements ForumCatalog {
           {
             _id: new ObjectID(forum.forumId),
           },
-          { $set: forum },
+          {
+            $set: {
+              forumName: forum.forumName,
+              forumDescription: forum.forumDescription,
+              forumCover: forum.forumCover,
+              forumType: forum.forumType,
+            },
+          },
           { returnOriginal: false }
         );
         if (value === null) {

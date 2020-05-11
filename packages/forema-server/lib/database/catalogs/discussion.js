@@ -123,7 +123,6 @@ export class Discussions implements DiscussionCatalog {
     return new Promise<Discussion>(async (resolve, reject) => {
       try {
         const newDiscussion = await this.discussionsCollection.insertOne({
-          discussionId: discussion.discussionId,
           forumId: new ObjectID(discussion.forumId),
           discussionSlug: discussion.discussionSlug,
           userId: new ObjectID(discussion.userId),
@@ -167,7 +166,17 @@ export class Discussions implements DiscussionCatalog {
           {
             _id: new ObjectID(discussion.discussionId),
           },
-          { $set: discussion },
+          {
+            $set: {
+              title: discussion.title,
+              content: discussion.content,
+              likes: discussion.likes,
+              dislikes: discussion.dislikes,
+              tags: discussion.tags,
+              pinned: discussion.pinned,
+              open: discussion.open,
+            },
+          },
           { returnOriginal: false }
         );
         if (value === null) {

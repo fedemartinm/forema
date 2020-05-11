@@ -15,12 +15,18 @@ export class Users implements UserCatalog {
   createUser(user: User): Promise<User> {
     return new Promise<User>(async (resolve, reject) => {
       try {
-        const newUser = await this.usersCollection.insertOne(user);
+        const newUser = await this.usersCollection.insertOne({
+          name: user.name,
+          username: user.username,
+          avatarUrl: user.avatarUrl,
+          email: user.email,
+          role: user.role,
+        });
         const [inserted] = newUser.ops;
         resolve({
           userId: newUser.insertedId,
           name: inserted.name,
-          username: inserted.user,
+          username: inserted.username,
           avatarUrl: inserted.avatarUrl,
           email: inserted.email,
           role: inserted.role,
@@ -41,7 +47,7 @@ export class Users implements UserCatalog {
         resolve({
           userId: result._id,
           name: result.name,
-          username: result.user,
+          username: result.username,
           avatarUrl: result.avatarUrl,
           email: result.email,
           role: result.role,
@@ -59,7 +65,14 @@ export class Users implements UserCatalog {
           {
             _id: new ObjectID(user.userId),
           },
-          { $set: user },
+          {
+            $set: {
+              name: user.name,
+              avatarUrl: user.avatarUrl,
+              email: user.email,
+              role: user.role,
+            },
+          },
           { returnOriginal: false }
         );
         if (value === null) {
@@ -68,7 +81,7 @@ export class Users implements UserCatalog {
           resolve({
             userId: value._id,
             name: value.name,
-            username: value.user,
+            username: value.username,
             avatarUrl: value.avatarUrl,
             email: value.email,
             role: value.role,
