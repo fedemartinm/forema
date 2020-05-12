@@ -1,16 +1,19 @@
+import { Auth, Settings } from './utils';
 import {
+  authenticator,
   bodyParser,
   compress,
   cors,
   errorHandler,
   helmet,
+  passport,
   pino,
+  session,
   validator,
 } from './middlewares';
 
 import { Database } from './database';
 import Koa from 'koa';
-import { Settings } from './utils';
 import { apiRoutes } from './api';
 
 export default class Forema {
@@ -24,6 +27,9 @@ export default class Forema {
     // connect to mongo-db
     await this.database.connect();
 
+    // keep sessions secure
+    this.koa.keys = ['secret'];
+
     // apply middlewares
     this.koa
       .use(pino(this.settings.logger))
@@ -31,7 +37,11 @@ export default class Forema {
       .use(helmet(this.settings.security))
       .use(compress(this.settings.compression))
       .use(cors(this.settings.origins))
+      .use(session({}, this.koa))
       .use(bodyParser())
+      .use(passport.initialize())
+      .use(passport.session({}))
+      .use(authenticator())
       .use(validator())
       .use(apiRoutes(this.database.db));
 
