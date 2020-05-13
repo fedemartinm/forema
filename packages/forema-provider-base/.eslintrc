@@ -6,12 +6,8 @@
     "es6": true
   },
   "parserOptions": {
-    "ecmaVersion": 2020,
-    "ecmaFeatures": {
-      "legacyDecorators": true
-    }
+    "ecmaVersion": 2020
   },
-  "settings": {},
   "rules": {
     "space-before-function-paren": 0,
     "import/export": 0
