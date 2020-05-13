@@ -1,14 +1,23 @@
 // @flow
 import type { User, IUserCatalog } from 'shared/types'
-
+import type { ValidateFunction } from 'ajv'
+import userSchema from 'shared/schemas/user.json'
+import Ajv from 'ajv'
 /**
- * Sample catalog, just to show catalog types
+ * Sample catalog, just to show types and schema usage
  */
 export class Users implements IUserCatalog {
   users: Array<User> = []
+  validateUser: ValidateFunction = new Ajv().compile(userSchema)
 
   createUser(user: User): Promise<User> {
+    // validate schema
     return new Promise<User>((resolve, reject) => {
+      if (!this.validateUser(user)) {
+        reject(new Error('Invalid user schema'))
+      }
+
+      // create user
       user.userId = new Date().getTime().toString()
       this.users.push(user)
       resolve(user)
@@ -22,6 +31,13 @@ export class Users implements IUserCatalog {
     })
   }
   updateUser(user: User): Promise<User> {
+    // validate schema
+    return new Promise<User>((resolve, reject) => {
+      if (!this.validateUser(user)) {
+        reject(new Error('Invalid user schema'))
+      }
+
+    // update user
     return new Promise<User>((resolve, reject) => {
       const index = this.users.findIndex((u) => u.userId === user.userId)
       if (user !== -1) {
