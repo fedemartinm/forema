@@ -1,11 +1,24 @@
-import hello from '../dist/index.js'
+import { Users } from '../dist/index'
 
-describe('it should say hello', () => {
-  it("should greet 'World'", () => {
-    expect(hello()).toBe('Hello World')
-  })
-
-  it("should greet 'e'", () => {
-    expect(hello('e')).toBe('Hello e')
+/**
+ * Sample test, just to try jest!
+ */
+describe('it should manage users', () => {
+  it('should add user', () => {
+    var users = new Users()
+    return users
+      .createUser({
+        name: 'User Name',
+        username: 'username',
+        avatarUrl: '',
+        email: 'user@email',
+        role: 'user',
+      })
+      .then(({ userId, name, username, avatarUrl, email, role }) => {
+        expect(typeof userId).toBe('string')
+        expect(name).toEqual('User Name')
+        expect(email).toEqual('user@email')
+        expect(role).toEqual('user')
+      })
   })
 })
