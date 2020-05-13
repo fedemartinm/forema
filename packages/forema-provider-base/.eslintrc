@@ -10,6 +10,7 @@
   },
   "rules": {
     "space-before-function-paren": 0,
+    "lines-between-class-members": 0,
     "import/export": 0
   }
 }
