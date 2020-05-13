@@ -31,14 +31,13 @@ export class Users implements IUserCatalog {
     })
   }
   updateUser(user: User): Promise<User> {
-    // validate schema
     return new Promise<User>((resolve, reject) => {
+      // validate schema
       if (!this.validateUser(user)) {
         reject(new Error('Invalid user schema'))
       }
 
-    // update user
-    return new Promise<User>((resolve, reject) => {
+      // update user
       const index = this.users.findIndex((u) => u.userId === user.userId)
       if (user !== -1) {
         this.users[index] = user
