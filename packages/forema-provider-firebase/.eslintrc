@@ -1,0 +1,16 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["standard", "plugin:prettier/recommended", "prettier/standard"],
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "rules": {
+    "space-before-function-paren": 0,
+    "lines-between-class-members": 0,
+    "import/export": 0
+  }
+}
