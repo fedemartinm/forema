@@ -49,7 +49,6 @@
   ],
   "dependencies": {
     "ajv": "^6.12.2",
-    "firebase": "^7.14.3",
-    "md5": "^2.2.1"
+    "firebase": "^7.14.3"
   }
 }
