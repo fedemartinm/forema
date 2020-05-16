@@ -1,22 +1,28 @@
 // @flow
-import 'firebase/auth'
-import 'firebase/firestore'
-
 import type { IUserCatalog, User } from 'shared/types'
 
 import Ajv from 'ajv'
-import type { ValidateFunction } from 'ajv'
-import firebase from '../firebaseApp'
 import userSchema from 'shared/schemas/user.json'
 
 export class UserCatalog implements IUserCatalog {
-  usersCollection = firebase.firestore().collection('users')
-  validateUser: ValidateFunction = new Ajv().compile(userSchema)
+  usersCollection: any
+  validator: any
+  validate: any
+
+  constructor(app: any) {
+    this.usersCollection = app.firestore().collection('users')
+    this.validator = new Ajv()
+    this.validate = this.validator.compile(userSchema)
+  }
+
+  get errors() {
+    // errors to human readable format
+    return this.validator.errorsText(this.validate.errors)
+  }
 
   async createUser(user: User): Promise<User> {
-    if (!this.validateUser(user)) {
-      console.error(this.validateUser.errors, user)
-      throw new Error('Invalid user schema')
+    if (!this.validate(user)) {
+      throw new Error(`Invalid user schema: ${this.errors}`)
     }
 
     ;(await this.usersCollection.doc(user.userId)).set({
@@ -31,7 +37,7 @@ export class UserCatalog implements IUserCatalog {
     return user
   }
 
-  async getUser(userId: string): Promise<User> {
+  async getUser(userId: string): Promise<?User> {
     const result = await this.usersCollection.doc(userId).get()
     if (result.exists) {
       const user = result.data()
@@ -47,9 +53,8 @@ export class UserCatalog implements IUserCatalog {
   }
 
   async updateUser(user: User): Promise<User> {
-    if (!this.validateUser(user)) {
-      console.error(this.validateUser.errors, user)
-      throw new Error('Invalid user schema')
+    if (!this.validate(user)) {
+      throw new Error(`Invalid user schema: ${this.errors}`)
     }
 
     ;(await this.usersCollection.doc(user.userId)).set(

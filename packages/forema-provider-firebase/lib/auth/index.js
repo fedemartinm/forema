@@ -1,15 +1,18 @@
 // @flow
-import 'firebase/auth'
 
 import * as firebase from 'firebase'
 
-import type { AuthProvider, User } from 'shared/types'
+import type { AuthProvider, IAuth, IUserCatalog, User } from 'shared/types'
 
-import { Database } from '../database/database'
-import firebaseApp from '../firebaseApp'
+import { UserCatalog } from '../database'
 
-export class Auth {
-  database = new Database()
+export class Auth implements IAuth {
+  users: IUserCatalog
+  firebaseApp: any
+  constructor(firebaseApp: any) {
+    this.firebaseApp = firebaseApp
+    this.users = new UserCatalog(firebaseApp)
+  }
 
   /**
    * This method prompt users to sign in with their accounts
@@ -21,14 +24,14 @@ export class Auth {
   async signInWithProvider(provider: AuthProvider): Promise<User> {
     try {
       var _provider = this.getProvider(provider)
-      const { user } = await firebaseApp.auth().signInWithPopup(_provider)
+      const { user } = await this.firebaseApp.auth().signInWithPopup(_provider)
 
       // get user's data
-      let foremaUser = await this.database.users.getUser(user.uid)
+      let foremaUser = await this.users.getUser(user.uid)
 
       // create if not exists
-      if (typeof foremaUser === 'undefined') {
-        foremaUser = await this.database.users.createUser({
+      if (!foremaUser) {
+        foremaUser = await this.users.createUser({
           userId: user.uid,
           name: user.displayName || 'Full name',
           username: user.uid.slice(0, 15),
@@ -49,25 +52,27 @@ export class Auth {
    * User logout.
    */
   async logout(): Promise<void> {
-    await firebaseApp.auth().signOut()
+    await this.firebaseApp.auth().signOut()
   }
 
   /**
    * Returns current authenticated user or undefined if not exists.
    *
    */
-  getCurrentUser(): Promise<User> {
+  getCurrentUser(): Promise<?User> {
     return new Promise((resolve) => {
-      const unsubscribe = firebaseApp.auth().onAuthStateChanged((authUser) => {
-        // onAuthStateChanged is an observer, prevent future calls.
-        unsubscribe()
-        // get forema user from auth.uid
-        if (authUser) {
-          this.database.users.getUser(authUser.uid).then((res) => resolve(res))
-        } else {
-          resolve()
-        }
-      })
+      const unsubscribe = this.firebaseApp
+        .auth()
+        .onAuthStateChanged((authUser) => {
+          // onAuthStateChanged is an observer, prevent future calls.
+          unsubscribe()
+          // get forema user from auth.uid
+          if (authUser) {
+            this.users.getUser(authUser.uid).then((res) => resolve(res))
+          } else {
+            resolve()
+          }
+        })
     })
   }
 
