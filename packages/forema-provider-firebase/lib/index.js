@@ -1,4 +1,4 @@
-//@ flow
+// @flow
 import * as firebase from 'firebase'
 
 import type {
@@ -19,13 +19,13 @@ import { UserCatalog } from './database'
  * @see https://github.com/fedemartinm/forema/blob/master/docs/forema-firebase/index.md
  */
 export default class FirebaseProvider implements IProvider {
-  constructor(config) {
-    const app = firebase.initializeApp(config)
+  constructor(config: any, firebaseApp: any) {
+    const app = firebaseApp ?? firebase.initializeApp(config)
     this.auth = new Auth(app)
     this.users = new UserCatalog(app)
   }
 
-  //Apis
+  // Apis
   auth: IAuth
   forema: IForemaCatalog
   forums: IForumCatalog

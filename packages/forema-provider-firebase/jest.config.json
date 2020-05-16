@@ -1,0 +1,3 @@
+{
+  "testEnvironment": "jest-environment-uint8array"
+}
