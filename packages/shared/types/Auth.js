@@ -21,5 +21,5 @@ export interface IAuth {
    * Get current authenticated user.
    * @returns User object or undefined if not exists.
    */
-  getCurrentUser(): Promise<User>;
+  getCurrentUser(): Promise<void | User>;
 }
