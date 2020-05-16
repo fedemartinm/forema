@@ -25,7 +25,7 @@ export class UserCatalog implements IUserCatalog {
       throw new Error(`Invalid user schema: ${this.errors}`)
     }
 
-    ;(await this.usersCollection.doc(user.userId)).set({
+    await this.usersCollection.doc(user.userId).set({
       userId: user.userId,
       name: user.name,
       username: user.username,
@@ -57,7 +57,7 @@ export class UserCatalog implements IUserCatalog {
       throw new Error(`Invalid user schema: ${this.errors}`)
     }
 
-    ;(await this.usersCollection.doc(user.userId)).set(
+    await this.usersCollection.doc(user.userId).set(
       {
         name: user.name,
         avatarUrl: user.avatarUrl,
