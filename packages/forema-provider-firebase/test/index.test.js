@@ -27,19 +27,23 @@ afterAll(async () => {
   )
 })
 
+//
+// #region USERS
+//
+
 test('require users to log in before creating a profile', async () => {
-  const app = authedApp({ uid: 'uid' })
-  const provider = new Provider(null, app)
+  const app = authedApp(null)
+  const provider = new Provider(null, authedApp(null))
 
   // prevent no-throws
   expect.assertions(1)
   try {
     await provider.users.createUser({
-      userId: 'uidb',
-      name: 'jhon',
-      username: 'jhon',
+      userId: 'auth.result.user.uid',
+      name: 'Jane Doe',
+      username: 'jane',
       avatarUrl: '',
-      email: 'jhon@example.com',
+      email: 'jd@example.com',
       role: 'user',
     })
   } catch (error) {
@@ -47,6 +51,58 @@ test('require users to log in before creating a profile', async () => {
     expect(error.code).toBe('permission-denied')
   }
 })
+
+test('should only let users create their own profile', async () => {
+  const app = authedApp({ uid: 'jane-uid' })
+  const provider = new Provider(null, app)
+
+  // prevent no-throws
+  expect.assertions(1)
+
+  const createResult = await provider.users.createUser({
+    userId: 'jane-uid',
+    name: 'Jane Doe',
+    username: 'jane',
+    avatarUrl: '',
+    email: 'jd@example.com',
+    role: 'user',
+  })
+  expect(createResult).toBeDefined()
+})
+
+test('no user can create an account for another user', async () => {
+  const app = authedApp({ uid: 'john-uid' })
+  const provider = new Provider(null, app)
+  // prevent no-throws
+  expect.assertions(1)
+  try {
+    await provider.users.createUser({
+      userId: 'auth.result.user.uid',
+      name: 'Jane Doe',
+      username: 'jane',
+      avatarUrl: '',
+      email: 'jd@example.com',
+      role: 'user',
+    })
+  } catch (error) {
+    //Check explicit permission-denied
+    expect(error.code).toBe('permission-denied')
+  }
+})
+
+test('should let anyone read any profile', async () => {
+  const app = authedApp(null)
+  const provider = new Provider(null, app)
+  // prevent no-throws
+  expect.assertions(1)
+
+  const getResult = await provider.users.getUser('indexistent-uid')
+  expect(getResult).toBeUndefined()
+})
+
+//
+// #endregion
+//
 
 //est('Only authenticated users can be stored', () => {
 

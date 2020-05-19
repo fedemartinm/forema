@@ -20,7 +20,7 @@ import { UserCatalog } from './database'
  */
 export default class FirebaseProvider implements IProvider {
   constructor(config: any, firebaseApp: any) {
-    const app = firebaseApp ?? firebase.initializeApp(config)
+    const app = firebaseApp || firebase.initializeApp(config)
     this.auth = new Auth(app)
     this.users = new UserCatalog(app)
   }
