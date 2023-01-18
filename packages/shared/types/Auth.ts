@@ -1,9 +1,10 @@
+import { User } from "./User";
 /**
  * Supported providers
  */
 export type AuthProvider = "google" | "github" | "facebook";
 
-export interface IAuth {
+export interface Auth {
   /**
    * This method prompt users to sign in with their accounts
    * by opening a pop-up window.
@@ -21,5 +22,5 @@ export interface IAuth {
    * Get current authenticated user.
    * @returns User object or undefined if not exists.
    */
-  getCurrentUser(): Promise<?User>;
+  getCurrentUser(): Promise<User>;
 }

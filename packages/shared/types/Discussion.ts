@@ -1,29 +1,28 @@
-// @flow
-import type { Forum } from './Forum';
-import type { User } from './User';
+import { Forum } from "./Forum";
+import { User } from "./User";
 
 export type Discussion = {
-  discussionId: string,
-  forumId: string,
-  forum: ?Forum,
-  discussionSlug: string,
-  userId: string,
-  user: ?User,
-  date: Date,
-  title: string,
-  content: Object,
-  likes: string[],
-  dislikes: string[],
-  tags: string[],
-  pinned: boolean,
-  open: boolean,
+  discussionId: string;
+  forumId: string;
+  forum?: Forum;
+  discussionSlug: string;
+  userId: string;
+  user?: User;
+  date: Date;
+  title: string;
+  content: Object;
+  likes: string[];
+  dislikes: string[];
+  tags: string[];
+  pinned: boolean;
+  open: boolean;
 };
 
-export interface IDiscussionCatalog {
+export interface DiscussionCatalog {
   getDiscussions(
     forumId: string,
     pinned: boolean,
-    sortingMethod: 'date' | 'popularity'
+    sortingMethod: "date" | "popularity"
   ): Promise<Discussion[]>;
 
   getDiscussion(discussionId: string): Promise<Discussion>;
