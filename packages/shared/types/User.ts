@@ -1,3 +1,5 @@
+import { Nullable } from "./Utils";
+
 export type User = {
   userId: string;
   name: string;
@@ -9,7 +11,7 @@ export type User = {
 
 export interface UserCatalog {
   createUser(user: User): Promise<User>;
-  getUser(userId: string): Promise<User | undefined>;
+  getUser(userId: string): Promise<Nullable<User>>;
   updateUser(user: User): Promise<User>;
   deleteUser(userId: string): Promise<boolean>;
 }

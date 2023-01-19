@@ -9,3 +9,4 @@ export { Opinion, OpinionCatalog } from "./Opinion";
 export { User, UserCatalog } from "./User";
 export { AuthProvider, Auth } from "./Auth";
 export { Provider } from "./Provider";
+export { Nullable } from "./Utils";

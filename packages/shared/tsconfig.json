@@ -1,0 +1,12 @@
+{
+    "include": [
+      "schemas",
+      "types"
+    ],
+    "compilerOptions": {
+      "rootDir": "./types",
+      "outDir": "dist",
+      "target": "ES2022",
+      "composite": true
+    },
+}
