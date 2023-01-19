@@ -1,0 +1,27 @@
+{
+  "name": "forema-redux",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index",
+  "types": "src/index",
+  "scripts": {
+    "build": "tsc --build --force tsconfig.json",
+    "clean": "rm -rf ./dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fede Martin",
+  "license": "ISC",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
+    "@types/react-redux": "^7.1.25",
+    "shared": "file:../shared"
+  },
+  "peerDependencies": {
+    "redux": "^4.2.0",
+    "react-redux": "^8.0.5",
+    "react": "=>16"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.4"
+  }
+}
